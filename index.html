@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +8,14 @@
         /* General Styling */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
-            /* Fallback color */
+            background-color: #f0f2f5; /* Fallback color */
             /* Subtle background pattern */
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23dce0e6' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             color: #333;
             line-height: 1.6;
             padding: 20px;
-            padding-bottom: 80px;
-            /* Add padding to bottom to avoid overlap with footer */
-            display: flex;
-            justify-content: center;
+            padding-bottom: 80px; /* Add padding to bottom to avoid overlap with footer */
+            margin: 0;
         }
 
         h1 {
@@ -28,27 +24,25 @@
             margin-bottom: 40px;
         }
 
-        /* The Tree Structure */
+        /* The Tree Structure for Desktop */
         .tree-wrapper {
             width: 100%;
-            overflow-x: auto;
-            /* Allows horizontal scrolling on small screens */
+            overflow-x: auto; /* Allows horizontal scrolling on small screens */
         }
-
+        
         .tree {
             display: flex;
-            justify-content: flex-start;
-            /* Align tree to the left */
+            justify-content: flex-start; /* Align tree to the left */
+            white-space: nowrap; /* Prevent wrapping of tree elements */
         }
 
         .tree ul {
             padding-top: 20px;
             position: relative;
             transition: all 0.5s;
-            list-style-type: none;
-            /* Remove bullets */
-            padding-left: 20px;
-            /* Add some space for connectors */
+            list-style-type: none; /* Remove bullets */
+            padding-left: 0;
+            display: inline-flex; 
         }
 
         .tree li {
@@ -56,11 +50,13 @@
             position: relative;
             padding: 20px 5px 0 5px;
             transition: all 0.5s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Connector lines */
-        .tree li::before,
-        .tree li::after {
+        /* Connector lines for Desktop */
+        .tree li::before, .tree li::after {
             content: '';
             position: absolute;
             top: 0;
@@ -77,17 +73,15 @@
         }
 
         /* Remove left-connector from root and right-connector from last child */
-        .tree li:only-child::after,
-        .tree li:only-child::before {
+        .tree li:only-child::after, .tree li:only-child::before {
             display: none;
         }
-
+        
         .tree li:only-child {
             padding-top: 0;
         }
 
-        .tree li:first-child::before,
-        .tree li:last-child::after {
+        .tree li:first-child::before, .tree li:last-child::after {
             border: 0 none;
         }
 
@@ -110,7 +104,7 @@
             width: 0;
             height: 20px;
         }
-
+        
         /* The node itself */
         .tree li span {
             border: 2px solid #3498db;
@@ -118,21 +112,21 @@
             display: inline-block;
             border-radius: 8px;
             background-color: #fff;
-            min-width: 150px;
-            /* Ensure nodes have a minimum width */
+            min-width: 150px; /* Ensure nodes have a minimum width */
             color: #2c3e50;
             font-weight: 600;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             transition: all 0.3s;
+            white-space: normal; /* Allow text to wrap inside the node */
         }
-
+        
         .tree li span:hover {
             background-color: #3498db;
             color: #fff;
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
-
+        
         /* Sub-details in the node */
         .tree li span .reign {
             display: block;
@@ -141,11 +135,11 @@
             margin-top: 5px;
             color: #7f8c8d;
         }
-
+        
         .tree li span:hover .reign {
             color: #ecf0f1;
         }
-
+        
         /* Footer Styling */
         footer {
             position: fixed;
@@ -160,78 +154,84 @@
             justify-content: center;
             align-items: center;
             font-size: 0.9em;
-            gap: 15px;
-            /* Creates space between footer items */
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            gap: 15px; /* Creates space between footer items */
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            z-index: 100;
         }
 
         .lion-icon {
-            height: 28px;
-            /* Icon size */
+            height: 28px; /* Icon size */
             width: 28px;
-            fill: #f1c40f;
-            /* Gold color for the lion */
+            fill: #f1c40f; /* Gold color for the lion */
         }
-
+        
         #datetime {
             font-family: 'Courier New', Courier, monospace;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255,255,255,0.1);
             padding: 5px 10px;
             border-radius: 4px;
         }
 
-        /* Responsive adjustments */
+        /* Responsive Mobile View */
         @media (max-width: 768px) {
             .tree {
-                display: block;
-                /* Stack vertically */
-                text-align: left;
+                display: block; /* Stack tree vertically */
+                white-space: normal;
             }
-
             .tree ul {
                 padding-left: 20px;
+                display: block;
             }
-
             .tree li {
                 text-align: left;
-                padding-left: 30px;
-                /* Indent children */
+                padding: 10px 0 10px 30px; /* Adjust padding for vertical layout */
+                align-items: flex-start;
             }
-
-            .tree li::before,
-            .tree li::after {
-                border: none;
-                /* Simplify connectors for vertical layout */
-            }
-
-            .tree li {
+            /* Vertical connectors for mobile */
+            .tree li::before {
+                content: '';
+                position: absolute;
+                top: -10px; /* Start line above the node */
+                left: 0;
                 border-left: 2px solid #ccc;
-                margin-left: -2px;
-                /* Align with parent's line */
+                width: 0;
+                height: 100%;
             }
-
-            .tree li:last-child {
-                border-left: none;
+             .tree li::after {
+                content: '';
+                position: absolute;
+                top: 32px; /* Adjust vertical position of horizontal connector */
+                left: 0px;
+                border-top: 2px solid #ccc;
+                width: 30px;
+                height: 0;
+                border-left: none; /* remove other borders */
+                border-radius: 0;
             }
-
+            /* Adjust root node's connectors */
+            .tree > ul > li::before, .tree > ul > li::after {
+                display: none;
+            }
+            /* Shorten line for the last child in a list */
+            .tree li:last-child::before {
+                height: 42px; 
+            }
             .tree li span {
                 margin-left: 10px;
             }
-
+            
             footer {
                 flex-direction: column;
                 gap: 8px;
                 padding: 10px 0;
             }
-
             body {
-                padding-bottom: 120px;
-                /* More space for taller footer */
+                padding-bottom: 120px; /* More space for taller footer */
             }
         }
+
     </style>
 </head>
-
 <body>
 
     <div class="tree-wrapper">
@@ -242,98 +242,121 @@
                     <span>Mwenemutapa Neshangwe Chioko Munembire <em class="reign">(c. 1530 - c. 1550)</em></span>
                     <ul>
                         <li>
-                            <span>Mwenemutapa Negomo Chirisamhuru Mupunzagutu <em class="reign">(c. 1560 - c.
-                                    1589)</em></span>
+                            <span>Mwenemutapa Negomo Chirisamhuru Mupunzagutu <em class="reign">(c. 1560 - c. 1589)</em></span>
                             <ul>
                                 <li>
-                                    <span>Mwenemutapa Mavhura Mhande Filipe <em class="reign">(c. 1629 - c.
-                                            1652)</em></span>
+                                    <span>Mwenemutapa Mavhura Mhande Filipe <em class="reign">(c. 1629 - c. 1652)</em></span>
                                     <ul>
                                         <li>
-                                            <span>Mwenemutapa Kamharapasu Mukombwe <em class="reign">(c. 1663 - c.
-                                                    1692)</em></span>
+                                            <span>Mwenemutapa Kamharapasu Mukombwe <em class="reign">(c. 1663 - c. 1692)</em></span>
                                             <ul>
-                                                <li>
-                                                    <span>Murarapavhu / Murarapavi</span>
+                                                <li><span>Murarapavhu / Murarapavi</span>
                                                     <ul>
-                                                        <li>
-                                                            <span>Chikanga</span>
+                                                        <li><span>Chikanga / Cikanga / Zinganga</span>
                                                             <ul>
-                                                                <li>
-                                                                    <span>Chivunguvungu / Chiwunguwungu
-                                                                        (Murambwi)</span>
+                                                                <li><span>Chivunguvungu / Chiwunguwungu (Murambwi)</span>
                                                                     <ul>
-                                                                        <li>
-                                                                            <span>Mudzungairi (Magurupira)</span>
+                                                                        <li><span>Mudzungairi Magurupira</span>
                                                                             <ul>
-                                                                                <li>
-                                                                                    <span>Madan'ombe</span>
+                                                                                <li><span>Madan'ombe</span>
                                                                                     <ul>
-                                                                                        <li>
-                                                                                            <span>Muzvidziwa</span>
+                                                                                        <li><span>Muzvidziwa</span>
                                                                                             <ul>
-                                                                                                <li>
-                                                                                                    <span>Chiondegwa</span>
+                                                                                                <li><span>Chiondegwa</span>
                                                                                                     <ul>
-                                                                                                        <li>
-                                                                                                            <span>Bhedhu
-                                                                                                                Chiondegwa</span>
+                                                                                                        <li><span>Bhedhu Chiondegwa</span>
                                                                                                             <ul>
-                                                                                                                <li>
-                                                                                                                    <span>Moses
-                                                                                                                        Bhedu
-                                                                                                                        Chiondegwa</span>
+                                                                                                                <li><span>Makore</span></li>
+                                                                                                                <li><span>Moses Bhedu Chiondegwa</span>
                                                                                                                     <ul>
-                                                                                                                        <li>
-                                                                                                                            <span>Charles
-                                                                                                                                Tarisai
-                                                                                                                                Chiondegwa</span>
+                                                                                                                        <li><span>Charles Tarisai Chiondegwa</span>
                                                                                                                             <ul>
-                                                                                                                                <li>
-                                                                                                                                    <span>Munyaradzi Bloodshed
-                                                                                                                                        Chiondegwa</span>
-                                                                                                                                </li>
+                                                                                                                                <li><span>Munyaradzi Chiondegwa</span></li>
                                                                                                                             </ul>
                                                                                                                         </li>
                                                                                                                     </ul>
                                                                                                                 </li>
+                                                                                                                <li><span>Dhindiri</span></li>
+                                                                                                                <li><span>Vhunikai</span></li>
+                                                                                                                <li><span>Tambudzai</span></li>
+                                                                                                                <li><span>Bhoromani</span></li>
                                                                                                             </ul>
                                                                                                         </li>
+                                                                                                        <li><span>Misha</span></li>
+                                                                                                        <li><span>Daughter</span></li>
                                                                                                     </ul>
                                                                                                 </li>
+                                                                                                <li><span>Fema</span></li>
+                                                                                                <li><span>Dhumbu</span></li>
+                                                                                                <li><span>Garariza</span></li>
                                                                                             </ul>
                                                                                         </li>
+                                                                                        <li><span>Magariro</span></li>
+                                                                                        <li><span>Marima</span></li>
+                                                                                        <li><span>Makamure</span></li>
+                                                                                        <li><span>Mutsvanga</span></li>
+                                                                                        <li><span>Mukamukiri</span></li>
+                                                                                        <li><span>Masvavike</span></li>
+                                                                                        <li><span>Mapendere</span></li>
+                                                                                        <li><span>Tamanya</span></li>
+                                                                                        <li><span>Madzivadondo</span></li>
                                                                                     </ul>
                                                                                 </li>
+                                                                                <li><span>Mapanzure</span></li>
+                                                                                <li><span>Gundura / Zvienda</span></li>
+                                                                                <li><span>Gomarara (Bere)</span></li>
+                                                                                <li><span>Banga</span></li>
+                                                                                <li><span>Chakaguta</span></li>
                                                                             </ul>
                                                                         </li>
+                                                                        <li><span>Barapata</span></li>
+                                                                        <li><span>Chizhuzhu</span></li>
+                                                                        <li><span>Semwenye</span></li>
+                                                                        <li><span>Nhema</span></li>
+                                                                        <li><span>Rera</span></li>
                                                                     </ul>
                                                                 </li>
+                                                                <li><span>Gaza</span></li>
+                                                                <li><span>Sigauke</span></li>
                                                             </ul>
                                                         </li>
                                                     </ul>
                                                 </li>
+                                                <li><span>Baroma Mugwagwa</span></li>
+                                                <li><span>Samatambira Nyamhandu I</span></li>
+                                                <li><span>Nyamaende Mhande</span></li>
+                                                <li><span>Chirimbi</span></li>
+                                                <li><span>Nyenyedzi Zenda</span></li>
+                                                <li><span>Nehoreka</span></li>
+                                                <li><span>Nyanzuzu</span></li>
+                                                <li><span>Nyamuzhiwa</span></li>
+                                                <li><span>Mukwiradombo</span></li>
+                                                <li><span>Nj'apa / Chingate</span></li>
                                             </ul>
                                         </li>
+                                        <li><span>Siti Kazurukamusapa</span></li>
+                                        <li><span>Nyakambira</span></li>
+                                        <li><span>Mapeze</span></li>
                                     </ul>
                                 </li>
+                                <li><span>Mutata Kupika</span></li>
                             </ul>
                         </li>
+                        <li><span>Other Several Children</span></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-
+    
     <footer>
         <!-- Lion Icon SVG -->
         <svg class="lion-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm46.5 288h-93c-6.2 0-11.7-4.2-13.2-10.2s-.1-12.6 4-17.1l30.5-33.8-30.5-33.8c-4.2-4.6-5.5-11.1-4-17.1s7-10.2 13.2-10.2h93c6.6 0 12 5.4 12 12v80c0 6.6-5.4 12-12 12zm-22.5-72c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8s3.6 8 8 8h44c4.4 0 8-3.6 8-8z" />
+            <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48zm46.5 288h-93c-6.2 0-11.7-4.2-13.2-10.2s-.1-12.6 4-17.1l30.5-33.8-30.5-33.8c-4.2-4.6-5.5-11.1-4-17.1s7-10.2 13.2-10.2h93c6.6 0 12 5.4 12 12v80c0 6.6-5.4 12-12 12zm-22.5-72c0-4.4-3.6-8-8-8h-44c-4.4 0-8 3.6-8 8s3.6 8 8 8h44c4.4 0 8-3.6 8-8z"/>
         </svg>
-
+        
         <span>Munyaradzi Chiondegwa : Madan'ombe</span>
-
+        
         <div id="datetime"></div>
     </footer>
 
@@ -354,5 +377,4 @@
     </script>
 
 </body>
-
 </html>
